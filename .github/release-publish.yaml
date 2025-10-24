@@ -1,0 +1,39 @@
+name: Release changed packages
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          registry-url: https://registry.npmjs.org/
+          cache: "npm"
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Publish changed packages
+        run: |
+          for pkg in packages/*; do
+            if [ -f "$pkg/package.json" ]; then
+              name=$(jq -r '.name' "$pkg/package.json")
+              local_version=$(jq -r '.version' "$pkg/package.json")
+              published_version=$(npm view "$name" version || echo "0.0.0")
+
+              if [ "$local_version" != "$published_version" ]; then
+                cd "$pkg"
+                npm publish --access public
+                cd - > /dev/null
+              fi
+            fi
+          done
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
