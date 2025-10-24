@@ -1,0 +1,15 @@
+{
+  "name": "core",
+  "version": "1.0.0",
+  "description": "Common packages/modules to be used by NGOs",
+  "license": "ISC",
+  "author": "Saksham Garg <saksham2700@gmail.com>",
+  "type": "module",
+  "main": "index.js",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
