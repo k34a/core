@@ -8,7 +8,18 @@ import { glob } from "glob";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), libInjectCss(), dts({ include: ["lib"] })],
+  plugins: [
+    react(),
+    libInjectCss(),
+    dts({
+      tsconfigPath: resolve(__dirname, "tsconfig.lib.json"),
+    }),
+  ],
+  resolve: {
+    alias: {
+      "~": resolve(__dirname, "./lib"),
+    },
+  },
   build: {
     lib: {
       entry: resolve(__dirname, "lib/main.ts"),

@@ -2,4 +2,4 @@ export function helloAnything(thing: string): string {
   return `Hello ${thing}!`;
 }
 
-export { Button } from "./components/button";
+export { Button } from "~/components/button";
