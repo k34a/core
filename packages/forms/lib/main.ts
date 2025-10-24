@@ -1,5 +1,4 @@
-export function helloAnything(thing: string): string {
-  return `Hello ${thing}!`;
-}
+import FormFillingService from '~/services/form-filling';
+import * as schemas from '~/schema';
 
-export { Button } from "~/components/button";
+export { FormFillingService, schemas };
